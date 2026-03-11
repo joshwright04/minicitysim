@@ -23,5 +23,8 @@ public class Tile {
     public void setObject(Placeable object){
         this.object = object;
     }
+    public Placeable getObject(){
+        return this.object;
+    }
 
 }

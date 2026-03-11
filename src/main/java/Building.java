@@ -12,4 +12,7 @@ public abstract class Building implements Placeable {
     public int getBuildCost() {
         return this.buildCost;
     }
+
+    @Override
+    public abstract void onTick(City city);
 }

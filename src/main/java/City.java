@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class City {
     private Double money;
     private int population;
     private CityMap map;
+    private List<CityObserver> observers = new ArrayList<>();
 
     public City(CityMap map){
         this.map = map;
@@ -27,7 +31,32 @@ public class City {
         if(amount <= 0) throw new IllegalArgumentException("deductMoney cannot accept negative numbers");
         this.money -= amount;
     }
+    public Double getMoney() { return this.money; }
 
     public CityMap getMap(){ return this.map; }
 
+
+    public void tick(){
+        for (Tile[] row : map.getGrid()){
+            for(Tile tile : row){
+                if(tile.isEmpty()) continue;
+                tile.getObject().onTick(this);
+            }
+        }
+        notifyObservers();
+    }
+
+
+
+    public void addObserver(CityObserver observer){
+        observers.add(observer);
+    }
+    public void removeObserver(CityObserver observer){
+        observers.remove(observer);
+    }
+    private void notifyObservers(){
+        for(CityObserver observer : observers){
+            observer.onCityChanged(this);
+        }
+    }
 }
