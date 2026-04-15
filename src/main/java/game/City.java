@@ -1,3 +1,5 @@
+package game;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +15,26 @@ public class City {
         this.population = 1;
     }
 
-    public void place(Placeable object, Position position){
+    public boolean place(Placeable object, Position position){
         Tile tile = map.getTile(position);
 
         if (tile.isEmpty()){
             if(money >= object.getBuildCost()){
                 tile.setObject(object);
+                return true;
             }
         }
+        return false;
+    }
+
+    public boolean demolish(Position position){
+        Tile tile = map.getTile(position);
+
+        if (tile.isEmpty()){
+            return false;
+        }
+        tile.setObject(null);
+        return true;
     }
 
     public void addMoney(int amount){
@@ -34,7 +48,6 @@ public class City {
     public Double getMoney() { return this.money; }
 
     public CityMap getMap(){ return this.map; }
-
 
     public void tick(){
         for (Tile[] row : map.getGrid()){
@@ -59,4 +72,6 @@ public class City {
             observer.onCityChanged(this);
         }
     }
+
+    public void printGrid() { map.printGrid(); }
 }

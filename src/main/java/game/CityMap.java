@@ -1,3 +1,5 @@
+package game;
+
 public class CityMap {
     private final Tile[][] grid;
 

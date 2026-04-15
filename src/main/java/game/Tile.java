@@ -1,3 +1,5 @@
+package game;
+
 public class Tile {
 
     private TerrainType terrain;
@@ -14,7 +16,7 @@ public class Tile {
 
     public void print(){
         System.out.println(
-                "Tile Contents:\n"
+                "game.Tile Contents:\n"
                 + "Terrain: " + terrain.toString() + "\n"
                 + "Contains: " + object.getName()
         );

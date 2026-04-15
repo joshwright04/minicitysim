@@ -1,3 +1,5 @@
+package game;
+
 public abstract class Building implements Placeable {
 
     String name;

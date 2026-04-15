@@ -1,3 +1,5 @@
+package game;
+
 public class House extends Building{
     static final int HOUSE_BUILD_COST = 20;
     static final int INCOME_RATE = 5;
