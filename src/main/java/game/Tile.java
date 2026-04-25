@@ -7,9 +7,14 @@ public class Tile {
     private TerrainType terrain;
     private Placeable object;
 
-    public Tile(TerrainType terrain, Placeable object){
+    public Tile(TerrainType terrain, Placeable object) {
         this.terrain = terrain;
         this.object = object;
+    }
+
+    public Tile(TerrainType terrain) {
+        this.terrain = terrain;
+        this.object = null;
     }
 
     public TerrainType getTerrainType() { return terrain; }

@@ -5,10 +5,10 @@ import ui.CityFrame;
 
 public class Main {
     public static City create2x2City(){
-        Tile t1 = new Tile(TerrainType.LAND, null);
-        Tile t2 = new Tile(TerrainType.ROCK, null);
-        Tile t3 = new Tile(TerrainType.RIVER, null);
-        Tile t4 = new Tile(TerrainType.LAND, null);
+        Tile t1 = new Tile(TerrainType.LAND);
+        Tile t2 = new Tile(TerrainType.ROCK);
+        Tile t3 = new Tile(TerrainType.RIVER);
+        Tile t4 = new Tile(TerrainType.LAND);
 
         Tile[][] grid = {
                 {t1, t2},
@@ -22,39 +22,39 @@ public class Main {
     public static City create5x5City() {
         Tile[][] grid = {
                 {
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.ROCK, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.LAND, null)
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.ROCK),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.LAND)
                 },
                 {
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.RIVER, null),
-                        new Tile(TerrainType.RIVER, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.ROCK, null)
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.RIVER),
+                        new Tile(TerrainType.RIVER),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.ROCK)
                 },
                 {
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.LAND, null)
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.LAND)
                 },
                 {
-                        new Tile(TerrainType.ROCK, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.RIVER, null),
-                        new Tile(TerrainType.LAND, null)
+                        new Tile(TerrainType.ROCK),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.RIVER),
+                        new Tile(TerrainType.LAND)
                 },
                 {
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.ROCK, null),
-                        new Tile(TerrainType.LAND, null),
-                        new Tile(TerrainType.LAND, null)
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.ROCK),
+                        new Tile(TerrainType.LAND),
+                        new Tile(TerrainType.LAND)
                 }
         };
 
