@@ -7,14 +7,13 @@ public class Apartment implements RealEstate {
     String unitName;
     private final int baseRent;
     private ITenant tenant;
+    private final int buildCost;
 
-    public Apartment(String unitName, int baseRent) {
+    public Apartment(String unitName, int baseRent, int buildCost, ITenant tenant) {
         this.unitName = unitName;
         this.baseRent = baseRent;
-    }
-    public Apartment(String unitName, int baseRent, ITenant tenant) {
-        this(unitName, baseRent);
         this.tenant = tenant;
+        this.buildCost = buildCost;
     }
 
     public void setTenant(ITenant tenant) {
@@ -37,4 +36,6 @@ public class Apartment implements RealEstate {
 
         return tenant.modifyRent(baseRent);
     }
+
+    public int getBuildCost(){ return this.buildCost; }
 }

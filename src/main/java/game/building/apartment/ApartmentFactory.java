@@ -26,9 +26,15 @@ public class ApartmentFactory {
 
     private final TenantFactory tenantFactory= new TenantFactory();
 
-    public Apartment createLuxuryApartment(){ return new Apartment(getRandomApartmentName("Luxury"), LUXURY_APARTMENT_RENT, tenantFactory.createRandomTenant()); }
+    public Apartment createBudgetApartment() {
+        return new Apartment("Budget", 5, 25, tenantFactory.createRandomTenant());
+    }
 
-    public Apartment createStandardApartment(){ return new Apartment(getRandomApartmentName("Standard"), STANDARD_APARTMENT_RENT, tenantFactory.createRandomTenant()); }
+    public Apartment createStandardApartment() {
+        return new Apartment("Standard", 10, 40, tenantFactory.createRandomTenant());
+    }
 
-    public Apartment createBudgetApartment() { return new Apartment(getRandomApartmentName("Budget"), BUDGET_APARTMENT_RENT, tenantFactory.createRandomTenant()); }
+    public Apartment createLuxuryApartment() {
+        return new Apartment("Luxury", 20, 75, tenantFactory.createRandomTenant());
+    }
 }

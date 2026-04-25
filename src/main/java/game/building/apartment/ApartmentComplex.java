@@ -15,42 +15,51 @@ public class ApartmentComplex extends Building implements RealEstate {
     }
 
     public static class ApartmentComplexBuilder {
-        private final ApartmentComplex apartmentComplex;
+        private final List<Apartment> apartments = new ArrayList<>();
         private final ApartmentFactory apartmentFactory;
 
         private ApartmentComplexBuilder(ApartmentFactory apartmentFactory) {
             this.apartmentFactory = apartmentFactory;
-            this.apartmentComplex = new ApartmentComplex(DEFAULT_APARTMENT_COMPLEX_NAME);
         }
 
         public ApartmentComplexBuilder addLuxuryApartment() {
-            apartmentComplex.addApartment(apartmentFactory.createLuxuryApartment());
+            apartments.add(apartmentFactory.createLuxuryApartment());
             return this;
         }
 
         public ApartmentComplexBuilder addStandardApartment() {
-            apartmentComplex.addApartment(apartmentFactory.createStandardApartment());
+            apartments.add(apartmentFactory.createStandardApartment());
             return this;
         }
 
         public ApartmentComplexBuilder addBudgetApartment() {
-            apartmentComplex.addApartment(apartmentFactory.createBudgetApartment());
+            apartments.add(apartmentFactory.createBudgetApartment());
             return this;
         }
 
         public ApartmentComplex build() {
-            if (apartmentComplex.size() == 0) {
+            if (apartments.isEmpty()) {
                 throw new IllegalArgumentException("Cannot create an Apartment Complex with 0 Apartments!");
             }
-            return apartmentComplex;
+
+            int totalBuildCost = 0;
+            for (Apartment apartment : apartments) {
+                totalBuildCost += apartment.getBuildCost();
+            }
+
+            return new ApartmentComplex(
+                    DEFAULT_APARTMENT_COMPLEX_NAME,
+                    totalBuildCost,
+                    apartments
+            );
         }
     }
 
     private final List<Apartment> apartments;
 
-    private ApartmentComplex(String name) {
-        super(name, 120);
-        this.apartments = new ArrayList<>();
+    private ApartmentComplex(String name, int buildCost, List<Apartment> apartments) {
+        super(name, buildCost);
+        this.apartments = new ArrayList<>(apartments);
     }
 
     private void addApartment(Apartment apartmentToAdd) {

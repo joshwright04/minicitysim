@@ -106,7 +106,9 @@ public class CityFrame extends JFrame implements CityObserver {
         placeMenu.add(createBuildingMenuItem("Mansion"));
         placeMenu.add(createBuildingMenuItem("Farm"));
         placeMenu.add(createBuildingMenuItem("Factory"));
-        placeMenu.add(createBuildingMenuItem("Apartment Complex"));
+        placeMenu.add(createBuildingMenuItem("Budget Apartment Complex"));
+        placeMenu.add(createBuildingMenuItem("Mid-Tier Apartment Complex"));
+        placeMenu.add(createBuildingMenuItem("Luxury Apartment Complex"));
 
         gameMenu.add(placeMenu);
         gameMenu.addSeparator();
