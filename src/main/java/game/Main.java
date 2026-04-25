@@ -1,5 +1,6 @@
 package game;
 
+import game.building.BuildingFactory;
 import ui.CityFrame;
 
 public class Main {

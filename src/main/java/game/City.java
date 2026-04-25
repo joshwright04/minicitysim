@@ -1,5 +1,8 @@
 package game;
 
+import game.building.Building;
+import game.building.BuildingFactory;
+import game.building.Placeable;
 import observers.CityObservable;
 import observers.CityObserver;
 
@@ -70,7 +73,7 @@ public class City implements CityObservable {
     public CityMap getMap() { return this.map; }
 
     public void tick() {
-        while(running) {
+        if(running) {
             for (Tile[] row : map.getGrid()){
                 for(Tile tile : row){
                     if(tile.isEmpty()) continue;

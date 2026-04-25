@@ -1,4 +1,6 @@
-package game;
+package game.building;
+
+import game.City;
 
 public interface Placeable {
     public String getName();

@@ -1,5 +1,8 @@
 package game;
 
+import game.building.Building;
+import game.building.BuildingFactory;
+
 import java.util.Scanner;
 
 public class Game {

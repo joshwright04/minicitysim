@@ -1,6 +1,7 @@
 package ui;
 
 import game.*;
+import game.building.BuildingFactory;
 import observers.CityObserver;
 
 import javax.swing.*;

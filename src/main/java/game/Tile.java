@@ -1,5 +1,7 @@
 package game;
 
+import game.building.Placeable;
+
 public class Tile {
 
     private TerrainType terrain;

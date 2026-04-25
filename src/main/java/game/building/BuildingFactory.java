@@ -1,5 +1,7 @@
-package game;
+package game.building;
 
+import game.building.apartment.ApartmentComplex;
+import game.building.apartment.ApartmentFactory;
 import game.tenant.TenantFactory;
 
 public class BuildingFactory {

@@ -1,8 +1,7 @@
 package game;
 
+import game.building.BuildingFactory;
 import org.junit.jupiter.api.Test;
-
-import java.io.BufferedOutputStream;
 
 import static game.Main.create2x2City;
 import static org.junit.jupiter.api.Assertions.assertTrue;

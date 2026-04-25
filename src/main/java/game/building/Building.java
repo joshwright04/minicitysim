@@ -1,4 +1,6 @@
-package game;
+package game.building;
+
+import game.City;
 
 public abstract class Building implements Placeable {
 

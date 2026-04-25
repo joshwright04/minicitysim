@@ -1,7 +1,8 @@
-package game;
+package game.building.apartment;
 
-import game.tenant.Tenant;
-import game.tenant.TenantFactory;
+import game.building.Building;
+import game.City;
+import game.building.RealEstate;
 
 import java.util.ArrayList;
 import java.util.List;

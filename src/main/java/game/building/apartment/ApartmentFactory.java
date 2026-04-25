@@ -1,4 +1,4 @@
-package game;
+package game.building.apartment;
 
 import game.tenant.TenantFactory;
 

@@ -1,5 +1,6 @@
-package game;
+package game.building;
 
+import game.City;
 import game.tenant.ITenant;
 
 public class House extends Building implements RealEstate {

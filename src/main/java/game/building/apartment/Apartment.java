@@ -1,5 +1,6 @@
-package game;
+package game.building.apartment;
 
+import game.building.RealEstate;
 import game.tenant.ITenant;
 
 public class Apartment implements RealEstate {
