@@ -82,6 +82,17 @@ public class ApartmentComplex extends Building implements RealEstate {
     }
 
     @Override
+    public List<String> getTenantNames() {
+        List<String> names = new ArrayList<>();
+
+        for (Apartment apartment : apartments) {
+            names.addAll(apartment.getTenantNames());
+        }
+
+        return names;
+    }
+
+    @Override
     public int getIncomeRate() {
         return collectRent();
     }

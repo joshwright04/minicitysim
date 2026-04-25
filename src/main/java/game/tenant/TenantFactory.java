@@ -10,11 +10,11 @@ public class TenantFactory {
 
         int roll = random.nextInt(100);
 
-        if (roll < 5) {
+        if (roll < 20) {
             return new WealthyTenant(tenant);
-        } else if (roll < 15) {
+        } else if (roll < 40) {
             return new ReliableTenant(tenant);
-        } else if (roll < 20) {
+        } else if (roll < 50) {
             return new ErraticTenant(tenant);
         }
 

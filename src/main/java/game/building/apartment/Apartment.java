@@ -3,6 +3,8 @@ package game.building.apartment;
 import game.building.RealEstate;
 import game.tenant.ITenant;
 
+import java.util.List;
+
 public class Apartment implements RealEstate {
     String unitName;
     private final int baseRent;
@@ -36,6 +38,16 @@ public class Apartment implements RealEstate {
 
         return tenant.modifyRent(baseRent);
     }
+
+    @Override
+    public List<String> getTenantNames() {
+        if (tenant == null) {
+            return List.of("No tenant");
+        }
+
+        return List.of(tenant.getName());
+    }
+
 
     public int getBuildCost(){ return this.buildCost; }
 }

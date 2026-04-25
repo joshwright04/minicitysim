@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import game.*;
 import game.building.BuildingFactory;
+import game.building.RealEstate;
 import observers.CityObserver;
 
 import javax.swing.*;
@@ -134,6 +135,21 @@ public class CityFrame extends JFrame implements CityObserver {
 
     private void showTileMenu(Component parent, Position position) {
         JPopupMenu menu = new JPopupMenu();
+
+        Tile tile = city.getMap().getTile(position);
+
+        if (tile.getObject() instanceof RealEstate realEstate) {
+            JMenu tenantMenu = new JMenu("Tenants");
+
+            for (String tenantName : realEstate.getTenantNames()) {
+                JMenuItem tenantItem = new JMenuItem(tenantName);
+                tenantItem.setEnabled(false);
+                tenantMenu.add(tenantItem);
+            }
+
+            menu.add(tenantMenu);
+            menu.addSeparator();
+        }
 
         JMenu placeMenu = new JMenu("Place Building");
 

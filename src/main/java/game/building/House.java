@@ -3,6 +3,8 @@ package game.building;
 import game.City;
 import game.tenant.ITenant;
 
+import java.util.List;
+
 public class House extends Building implements RealEstate {
     private ITenant tenant;
     private final int baseRent;
@@ -52,5 +54,14 @@ public class House extends Building implements RealEstate {
     @Override
     public String getImagePath() {
         return "/images/house.jpg";
+    }
+
+    @Override
+    public List<String> getTenantNames() {
+        if (tenant == null) {
+            return List.of("No tenant");
+        }
+
+        return List.of(tenant.getName());
     }
 }
