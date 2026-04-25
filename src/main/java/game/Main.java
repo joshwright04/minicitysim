@@ -59,15 +59,7 @@ public class Main {
         };
 
         CityMap map = new CityMap(grid);
-        City city = new City(map);
-
-        BuildingFactory buildingFactory = new BuildingFactory();
-        city.place(buildingFactory.createCottage("Cottage"), new Position(0, 0));
-        city.place(buildingFactory.createFarm("Farm"), new Position(0, 1));
-        city.place(buildingFactory.createFactory("Factory"), new Position(2, 2));
-        city.place(buildingFactory.createBudgetApartmentComplex("O Block"), new Position(4, 4));
-
-        return city;
+        return new City(map);
     }
 
 

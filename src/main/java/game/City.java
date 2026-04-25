@@ -35,16 +35,9 @@ public class City implements CityObservable {
             case "Mansion" -> buildingFactory.createMansion("Mansion");
             case "Farm" -> buildingFactory.createFarm("Farm");
             case "Factory" -> buildingFactory.createFactory("Factory");
-
-            case "Budget Apartment Complex" ->
-                    buildingFactory.createBudgetApartmentComplex("Budget Apartments");
-
-            case "Mid-Tier Apartment Complex" ->
-                    buildingFactory.createMidTierApartmentComplex("Mid-Tier Apartments");
-
-            case "Luxury Apartment Complex" ->
-                    buildingFactory.createLuxuryApartmentComplex("Luxury Apartments");
-
+            case "Budget Apartment Complex" -> buildingFactory.createBudgetApartmentComplex();
+            case "Mid-Tier Apartment Complex" -> buildingFactory.createMidTierApartmentComplex();
+            case "Luxury Apartment Complex" -> buildingFactory.createLuxuryApartmentComplex();
             default -> null;
         };
 

@@ -24,6 +24,9 @@ public class BuildingFactory {
     public static final String DEFAULT_MANSION_NAME = "Mansion";
     public static final String DEFAULT_FARM_NAME = "Farm";
     public static final String DEFAULT_FACTORY_NAME = "Factory";
+    public static final String DEFAULT_BUDGET_APARTMENT_COMPLEX_NAME = "Budget Apartment Complex";
+    public static final String DEFAULT_STANDARD_APARTMENT_COMPLEX_NAME = "Standard Apartment Complex";
+    public static final String DEFAULT_LUXURY_APARTMENT_COMPLEX_NAME = "Luxury Apartment Complex";
 
     public Building createCottage(){ return createCottage(DEFAULT_COTTAGE_NAME); }
 
@@ -55,6 +58,8 @@ public class BuildingFactory {
         return new Factory(name, DEFAULT_FACTORY_COST, DEFAULT_FACTORY_INCOME);
     }
 
+    public Building createBudgetApartmentComplex(){ return createBudgetApartmentComplex(DEFAULT_BUDGET_APARTMENT_COMPLEX_NAME); }
+
     public Building createBudgetApartmentComplex(String name){
         ApartmentComplex.ApartmentComplexBuilder builder = ApartmentComplex.getNewBuilder(new ApartmentFactory());
 
@@ -64,6 +69,8 @@ public class BuildingFactory {
                 .addBudgetApartment()
                 .build();
     }
+
+    public Building createMidTierApartmentComplex(){ return createMidTierApartmentComplex(DEFAULT_STANDARD_APARTMENT_COMPLEX_NAME); }
 
     public Building createMidTierApartmentComplex(String name){
         ApartmentComplex.ApartmentComplexBuilder builder = ApartmentComplex.getNewBuilder(new ApartmentFactory());
@@ -76,6 +83,8 @@ public class BuildingFactory {
                 .build();
     }
 
+    public Building createLuxuryApartmentComplex(){ return createLuxuryApartmentComplex(DEFAULT_LUXURY_APARTMENT_COMPLEX_NAME); }
+
     public Building createLuxuryApartmentComplex(String name){
         ApartmentComplex.ApartmentComplexBuilder builder = ApartmentComplex.getNewBuilder(new ApartmentFactory());
 
@@ -84,6 +93,6 @@ public class BuildingFactory {
             .addLuxuryApartment()
             .addLuxuryApartment()
             .addLuxuryApartment()
-                .build();
+            .build();
     }
 }
