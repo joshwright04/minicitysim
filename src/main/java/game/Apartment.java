@@ -8,7 +8,12 @@ public class Apartment implements RealEstate {
     private ITenant tenant;
 
     public Apartment(String unitName, int baseRent) {
+        this.unitName = unitName;
         this.baseRent = baseRent;
+    }
+    public Apartment(String unitName, int baseRent, ITenant tenant) {
+        this(unitName, baseRent);
+        this.tenant = tenant;
     }
 
     public void setTenant(ITenant tenant) {

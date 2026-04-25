@@ -1,6 +1,7 @@
 package game;
 
 import game.tenant.Tenant;
+import game.tenant.TenantFactory;
 
 import java.util.ArrayList;
 import java.util.List;
