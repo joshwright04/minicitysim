@@ -165,7 +165,7 @@ public class CityFrame extends JFrame implements CityObserver {
         placeMenu.add(createPlaceMenuItem("Mid-Tier Apartment Complex", position));
         placeMenu.add(createPlaceMenuItem("Luxury Apartment Complex", position));
 
-        JMenuItem removeItem = new JMenuItem("Remove Building");
+        JMenuItem removeItem = new JMenuItem("Remove");
         removeItem.addActionListener(e -> {
             boolean success = city.demolish(position);
 
