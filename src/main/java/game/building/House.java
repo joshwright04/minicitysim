@@ -10,6 +10,7 @@ public class House extends Building implements RealEstate {
     public House(String name, int buildCost, int baseRent) {
         super(name, buildCost);
         this.baseRent = baseRent;
+        this.tenant = null;
     }
 
     public House(String name, int buildCost, int baseRent, ITenant tenant) {
