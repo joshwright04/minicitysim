@@ -10,6 +10,82 @@ public class CityFrame extends JFrame implements CityObserver {
     private final City city;
     private final JLabel moneyLabel;
     private final JPanel gridPanel;
+    private final BuildingFactory buildingFactory = new BuildingFactory();
+
+    private JMenuItem createBuildingMenuItem(String name) {
+        JMenuItem item = new JMenuItem(name);
+
+        item.addActionListener(e -> {
+            String input = JOptionPane.showInputDialog(
+                    this,
+                    "Enter coordinates as x,y:",
+                    "Place " + name,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (input == null) return;
+
+            String[] parts = input.split(",");
+
+            if (parts.length != 2) {
+                JOptionPane.showMessageDialog(this, "Use format: x,y");
+                return;
+            }
+
+            try {
+                int x = Integer.parseInt(parts[0].trim());
+                int y = Integer.parseInt(parts[1].trim());
+
+                Position buildingPosition = new Position(x, y);
+
+               city.place(name, buildingPosition);
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Coordinates must be numbers.");
+            }
+        });
+
+        return item;
+    }
+
+    private void setupMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu gameMenu = new JMenu("Game");
+        JMenu placeMenu = new JMenu("Place");
+
+        JMenuItem nextTick = new JMenuItem("Next Tick");
+        nextTick.addActionListener(e -> {
+            city.tick();
+        });
+
+        JMenuItem remove = new JMenuItem("Remove");
+        remove.addActionListener(e -> {
+            System.out.println("Remove selected");
+        });
+
+        JMenuItem quit = new JMenuItem("Quit");
+        quit.addActionListener(e -> {
+            this.city.running = false;
+            System.exit(0);
+        });
+
+        placeMenu.add(createBuildingMenuItem("Cottage"));
+        placeMenu.add(createBuildingMenuItem("House"));
+        placeMenu.add(createBuildingMenuItem("Mansion"));
+        placeMenu.add(createBuildingMenuItem("Farm"));
+        placeMenu.add(createBuildingMenuItem("Factory"));
+        placeMenu.add(createBuildingMenuItem("Apartment Complex"));
+
+        gameMenu.add(placeMenu);
+        gameMenu.addSeparator();
+        gameMenu.add(remove);
+        gameMenu.add(nextTick);
+        gameMenu.add(quit);
+
+        menuBar.add(gameMenu);
+
+        setJMenuBar(menuBar);
+    }
 
     public CityFrame(City city) {
         this.city = city;
@@ -22,6 +98,8 @@ public class CityFrame extends JFrame implements CityObserver {
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+
+        setupMenu();
 
         add(moneyLabel, BorderLayout.NORTH);
         add(gridPanel, BorderLayout.CENTER);

@@ -7,13 +7,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class City implements CityObservable {
+    public boolean running;
     private Double money;
     private final CityMap map;
     private final List<CityObserver> observers = new ArrayList<>();
+    private final BuildingFactory buildingFactory = new BuildingFactory();
 
     public City(CityMap map){
         this.map = map;
         this.money = 1000.00;
+        this.running = true;
+    }
+
+    public boolean place(String buildingName, Position position) {
+        Building building = switch (buildingName) {
+            case "Cottage" -> buildingFactory.createCottage("Cottage");
+            case "House" -> buildingFactory.createHouse("House");
+            case "Mansion" -> buildingFactory.createMansion("Mansion");
+            case "Farm" -> buildingFactory.createFarm("Farm");
+            case "Factory" -> buildingFactory.createFactory("Factory");
+            case "Apartment Complex" -> buildingFactory.createMidTierApartmentComplex("Apartments");
+            default -> null;
+        };
+
+        return place(building, position);
     }
 
     public boolean place(Placeable object, Position position){
@@ -22,6 +39,8 @@ public class City implements CityObservable {
         if (tile.isEmpty()){
             if(money >= object.getBuildCost()){
                 tile.setObject(object);
+                deductMoney(object.getBuildCost());
+                notifyObservers();
                 return true;
             }
         }
@@ -39,28 +58,28 @@ public class City implements CityObservable {
     }
 
     public void addMoney(int amount){
-        if(amount <= 0) throw new IllegalArgumentException("addMoney cannot accept negative numbers");
+        if(amount < 0) throw new IllegalArgumentException("addMoney cannot accept negative numbers");
         this.money += amount;
     }
     public void deductMoney(int amount){
-        if(amount <= 0) throw new IllegalArgumentException("deductMoney cannot accept negative numbers");
+        if(amount < 0) throw new IllegalArgumentException("deductMoney cannot accept negative numbers");
         this.money -= amount;
     }
     public Double getMoney() { return this.money; }
 
-    public CityMap getMap(){ return this.map; }
+    public CityMap getMap() { return this.map; }
 
-    public void tick(){
-        for (Tile[] row : map.getGrid()){
-            for(Tile tile : row){
-                if(tile.isEmpty()) continue;
-                tile.getObject().onTick(this);
+    public void tick() {
+        while(running) {
+            for (Tile[] row : map.getGrid()){
+                for(Tile tile : row){
+                    if(tile.isEmpty()) continue;
+                    tile.getObject().onTick(this);
+                }
             }
+            notifyObservers();
         }
-        notifyObservers();
     }
-
-
 
     public void addObserver(CityObserver observer){
         observers.add(observer);
