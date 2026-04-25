@@ -16,84 +16,12 @@ public class CityFrame extends JFrame implements CityObserver {
     private final BuildingFactory buildingFactory = new BuildingFactory();
     private final Map<String, ImageIcon> iconCache = new HashMap<>();
 
-    private JMenuItem createBuildingMenuItem(String name) {
-        JMenuItem item = new JMenuItem(name);
-
-        item.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog(
-                    this,
-                    "Enter coordinates as x,y:",
-                    "Place " + name,
-                    JOptionPane.QUESTION_MESSAGE
-            );
-
-            if (input == null) return;
-
-            String[] parts = input.split(",");
-
-            if (parts.length != 2) {
-                JOptionPane.showMessageDialog(this, "Use format: x,y");
-                return;
-            }
-
-            try {
-                int x = Integer.parseInt(parts[0].trim());
-                int y = Integer.parseInt(parts[1].trim());
-
-                Position buildingPosition = new Position(x, y);
-
-               city.place(name, buildingPosition);
-
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Coordinates must be numbers.");
-            }
-        });
-
-        return item;
-    }
-
-    private void askForCoordinatesAndRemove() {
-        String input = JOptionPane.showInputDialog(
-                this,
-                "Enter coordinates as x,y:",
-                "Remove",
-                JOptionPane.QUESTION_MESSAGE
-        );
-
-        if (input == null) return;
-
-        String[] parts = input.split(",");
-
-        if (parts.length != 2) {
-            JOptionPane.showMessageDialog(this, "Use format: x,y");
-            return;
-        }
-
-        try {
-            int x = Integer.parseInt(parts[0].trim());
-            int y = Integer.parseInt(parts[1].trim());
-
-            Position position = new Position(x, y);
-
-            city.demolish(position);
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Coordinates must be numbers.");
-        }
-    }
-
     private void setupMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu gameMenu = new JMenu("Game");
-        JMenu placeMenu = new JMenu("Place");
 
         JMenuItem nextTick = new JMenuItem("Next Tick");
-        nextTick.addActionListener(e -> {
-            city.tick();
-        });
-
-        JMenuItem remove = new JMenuItem("Remove");
-        remove.addActionListener(e -> askForCoordinatesAndRemove());
+        nextTick.addActionListener(e -> city.tick());
 
         JMenuItem quit = new JMenuItem("Quit");
         quit.addActionListener(e -> {
@@ -101,23 +29,10 @@ public class CityFrame extends JFrame implements CityObserver {
             System.exit(0);
         });
 
-        placeMenu.add(createBuildingMenuItem("Cottage"));
-        placeMenu.add(createBuildingMenuItem("House"));
-        placeMenu.add(createBuildingMenuItem("Mansion"));
-        placeMenu.add(createBuildingMenuItem("Farm"));
-        placeMenu.add(createBuildingMenuItem("Factory"));
-        placeMenu.add(createBuildingMenuItem("Budget Apartment Complex"));
-        placeMenu.add(createBuildingMenuItem("Mid-Tier Apartment Complex"));
-        placeMenu.add(createBuildingMenuItem("Luxury Apartment Complex"));
-
-        gameMenu.add(placeMenu);
-        gameMenu.addSeparator();
-        gameMenu.add(remove);
         gameMenu.add(nextTick);
         gameMenu.add(quit);
 
         menuBar.add(gameMenu);
-
         setJMenuBar(menuBar);
     }
 
@@ -182,6 +97,9 @@ public class CityFrame extends JFrame implements CityObserver {
 
                 button.setIcon(loadIcon(imagePath));
 
+                Position position = new Position(x, y);
+                button.addActionListener(e -> showTileMenu(button, position));
+
                 gridPanel.add(button);
             }
         }
@@ -212,5 +130,51 @@ public class CityFrame extends JFrame implements CityObserver {
             case ROCK -> "/images/rock.png";
             case LAKE -> "/images/lake.png";
         };
+    }
+
+    private void showTileMenu(Component parent, Position position) {
+        JPopupMenu menu = new JPopupMenu();
+
+        JMenu placeMenu = new JMenu("Place Building");
+
+        placeMenu.add(createPlaceMenuItem("Cottage", position));
+        placeMenu.add(createPlaceMenuItem("House", position));
+        placeMenu.add(createPlaceMenuItem("Mansion", position));
+        placeMenu.add(createPlaceMenuItem("Farm", position));
+        placeMenu.add(createPlaceMenuItem("Factory", position));
+
+        placeMenu.addSeparator();
+
+        placeMenu.add(createPlaceMenuItem("Budget Apartment Complex", position));
+        placeMenu.add(createPlaceMenuItem("Mid-Tier Apartment Complex", position));
+        placeMenu.add(createPlaceMenuItem("Luxury Apartment Complex", position));
+
+        JMenuItem removeItem = new JMenuItem("Remove Building");
+        removeItem.addActionListener(e -> {
+            boolean success = city.demolish(position);
+
+            if (!success) {
+                JOptionPane.showMessageDialog(this, "Nothing to remove here.");
+            }
+        });
+
+        menu.add(placeMenu);
+        menu.add(removeItem);
+
+        menu.show(parent, parent.getWidth() / 2, parent.getHeight() / 2);
+    }
+
+    private JMenuItem createPlaceMenuItem(String buildingName, Position position) {
+        JMenuItem item = new JMenuItem(buildingName);
+
+        item.addActionListener(e -> {
+            boolean success = city.place(buildingName, position);
+
+            if (!success) {
+                JOptionPane.showMessageDialog(this, "Could not place " + buildingName + " here.");
+            }
+        });
+
+        return item;
     }
 }
