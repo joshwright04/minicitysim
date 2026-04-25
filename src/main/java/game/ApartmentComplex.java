@@ -1,9 +1,11 @@
 package game;
 
+import game.tenant.Tenant;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApartmentComplex extends Building {
+public class ApartmentComplex extends Building implements RealEstate {
     private static final String DEFAULT_APARTMENT_COMPLEX_NAME = "Complex Living";
 
     public static ApartmentComplexBuilder getNewBuilder(ApartmentFactory apartmentFactory) {
@@ -11,69 +13,71 @@ public class ApartmentComplex extends Building {
     }
 
     public static class ApartmentComplexBuilder {
-        final ApartmentComplex apartmentComplex = new ApartmentComplex(DEFAULT_APARTMENT_COMPLEX_NAME);
+        private final ApartmentComplex apartmentComplex;
         private final ApartmentFactory apartmentFactory;
 
         private ApartmentComplexBuilder(ApartmentFactory apartmentFactory) {
             this.apartmentFactory = apartmentFactory;
+            this.apartmentComplex = new ApartmentComplex(DEFAULT_APARTMENT_COMPLEX_NAME);
         }
 
         public ApartmentComplexBuilder addLuxuryApartment() {
-            Apartment newLuxuryApartment = apartmentFactory.createLuxuryApartment();
-            apartmentComplex.addApartment(newLuxuryApartment);
+            apartmentComplex.addApartment(apartmentFactory.createLuxuryApartment());
             return this;
         }
 
         public ApartmentComplexBuilder addStandardApartment() {
-            Apartment newStandardApartment = apartmentFactory.createStandardApartment();
-            apartmentComplex.addApartment(newStandardApartment);
+            apartmentComplex.addApartment(apartmentFactory.createStandardApartment());
             return this;
         }
 
         public ApartmentComplexBuilder addBudgetApartment() {
-            Apartment newBudgetApartment = apartmentFactory.createBudgetApartment();
-            apartmentComplex.addApartment(newBudgetApartment);
+            apartmentComplex.addApartment(apartmentFactory.createBudgetApartment());
             return this;
         }
 
         public ApartmentComplex build() {
             if (apartmentComplex.size() == 0) {
-                throw new IllegalArgumentException("Cannot Create an Apartment Complex with 0 Apartments!");
+                throw new IllegalArgumentException("Cannot create an Apartment Complex with 0 Apartments!");
             }
             return apartmentComplex;
         }
-
     }
 
     private final List<Apartment> apartments;
 
-    public ApartmentComplex(String name) {
+    private ApartmentComplex(String name) {
         super(name, 120);
-        apartments = new ArrayList<>();
-
-        apartments.add(new Apartment("Unit 1", 10));
-        apartments.add(new Apartment("Unit 2", 10));
-        apartments.add(new Apartment("Unit 3", 10));
+        this.apartments = new ArrayList<>();
     }
 
-    private void addApartment(Apartment apartmentToAdd){
+    private void addApartment(Apartment apartmentToAdd) {
         apartments.add(apartmentToAdd);
     }
 
-    public int size(){ return this.apartments.size(); }
+    public int size() {
+        return apartments.size();
+    }
 
     @Override
-    public int getIncomeRate() {
+    public int collectRent() {
         int total = 0;
-        for (Apartment a : apartments) {
-            total += a.collectRent();
+
+        for (Apartment apartment : apartments) {
+            total += apartment.collectRent();
         }
+
         return total;
     }
 
     @Override
+    public int getIncomeRate() {
+        return collectRent();
+    }
+
+    @Override
     public void onTick(City city) {
-        city.addMoney(getIncomeRate());
+        city.addMoney(collectRent());
     }
 
     @Override

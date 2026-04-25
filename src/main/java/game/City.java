@@ -8,14 +8,12 @@ import java.util.List;
 
 public class City implements CityObservable {
     private Double money;
-    private int population;
-    private CityMap map;
-    private List<CityObserver> observers = new ArrayList<>();
+    private final CityMap map;
+    private final List<CityObserver> observers = new ArrayList<>();
 
     public City(CityMap map){
         this.map = map;
         this.money = 1000.00;
-        this.population = 1;
     }
 
     public boolean place(Placeable object, Position position){

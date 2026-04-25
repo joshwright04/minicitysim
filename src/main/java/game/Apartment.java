@@ -1,29 +1,34 @@
 package game;
 
-public class Apartment {
-    private final String unitName;
-    private boolean occupied;
-    private int rent;
+import game.tenant.ITenant;
 
-    public Apartment(String unitName, int rent) {
-        this.unitName = unitName;
-        this.rent = rent;
-        this.occupied = false;
+public class Apartment implements RealEstate {
+    String unitName;
+    private final int baseRent;
+    private ITenant tenant;
+
+    public Apartment(String unitName, int baseRent) {
+        this.baseRent = baseRent;
     }
 
-    public String getUnitName() {
-        return unitName;
+    public void setTenant(ITenant tenant) {
+        this.tenant = tenant;
     }
 
-    public boolean isOccupied() {
-        return occupied;
+    public boolean hasTenant() {
+        return tenant != null;
     }
 
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
-    }
-
+    @Override
     public int collectRent() {
-        return occupied ? rent : 0;
+        if (tenant == null) {
+            return 0;
+        }
+
+        if (!tenant.paysRentThisTick()) {
+            return 0;
+        }
+
+        return tenant.modifyRent(baseRent);
     }
 }

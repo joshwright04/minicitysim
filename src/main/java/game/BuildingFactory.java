@@ -21,7 +21,35 @@ public class BuildingFactory {
         return new Factory(name, 50, 12);
     }
 
-    public Building createApartmentComplex(String name){
-        return new ApartmentComplex(name);
+    public Building createBudgetApartmentComplex(String name){
+        ApartmentComplex.ApartmentComplexBuilder builder = ApartmentComplex.getNewBuilder(new ApartmentFactory());
+
+        return builder.addBudgetApartment()
+                .addBudgetApartment()
+                .addBudgetApartment()
+                .addBudgetApartment()
+                .build();
+    }
+
+    public Building createMidTierApartmentComplex(String name){
+        ApartmentComplex.ApartmentComplexBuilder builder = ApartmentComplex.getNewBuilder(new ApartmentFactory());
+
+        return builder
+                .addStandardApartment()
+                .addStandardApartment()
+                .addStandardApartment()
+                .addStandardApartment()
+                .build();
+    }
+
+    public Building createLuxuryApartmentComplex(String name){
+        ApartmentComplex.ApartmentComplexBuilder builder = ApartmentComplex.getNewBuilder(new ApartmentFactory());
+
+        return builder
+            .addLuxuryApartment()
+            .addLuxuryApartment()
+            .addLuxuryApartment()
+            .addLuxuryApartment()
+                .build();
     }
 }

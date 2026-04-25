@@ -1,23 +1,49 @@
 package game;
 
-public class House extends Building{
+import game.tenant.ITenant;
 
-    private final int incomeRate;
-    public House(String name, int buildCost, int incomeRate){
+public class House extends Building implements RealEstate {
+    private ITenant tenant;
+    private final int baseRent;
+
+    public House(String name, int buildCost, int baseRent) {
         super(name, buildCost);
-        this.incomeRate = incomeRate;
+        this.baseRent = baseRent;
+    }
+
+    public void setTenant(ITenant tenant) {
+        this.tenant = tenant;
+    }
+
+    public boolean hasTenant() {
+        return tenant != null;
+    }
+
+    @Override
+    public int collectRent() {
+        if (tenant == null) {
+            return 0;
+        }
+
+        if (!tenant.paysRentThisTick()) {
+            return 0;
+        }
+
+        return tenant.modifyRent(baseRent);
+    }
+
+    @Override
+    public int getIncomeRate() {
+        return collectRent();
     }
 
     @Override
     public void onTick(City city) {
-        city.addMoney(getIncomeRate());
+        city.addMoney(collectRent());
     }
 
     @Override
-    public String getSymbol(){ return "H"; }
-
-    @Override
-    public int getIncomeRate() {
-        return incomeRate;
+    public String getSymbol() {
+        return "H";
     }
 }

@@ -52,7 +52,7 @@ public class Game {
             case "3" -> buildingFactory.createMansion("Mansion");
             case "4" -> buildingFactory.createFarm("Farm");
             case "5" -> buildingFactory.createFactory("Factory");
-            case "6" -> buildingFactory.createApartmentComplex("Apartments");
+            case "6" -> buildingFactory.createMidTierApartmentComplex("Apartments");
             default -> null;
         };
 

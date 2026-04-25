@@ -60,10 +60,11 @@ public class Main {
         CityMap map = new CityMap(grid);
         City city = new City(map);
 
-        city.place(new House("Starter House", 20, 5), new Position(0, 0));
-        city.place(new Farm("Starter Farm", 15, 3), new Position(0, 1));
-        city.place(new Factory("Starter Factory", 50, 12), new Position(2, 2));
-        city.place(new ApartmentComplex("Starter Apartments"), new Position(4, 4));
+        BuildingFactory buildingFactory = new BuildingFactory();
+        city.place(buildingFactory.createCottage("Cottage"), new Position(0, 0));
+        city.place(buildingFactory.createFarm("Farm"), new Position(0, 1));
+        city.place(buildingFactory.createFactory("Factory"), new Position(2, 2));
+        city.place(buildingFactory.createBudgetApartmentComplex("O Block"), new Position(4, 4));
 
         return city;
     }
