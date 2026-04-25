@@ -1,23 +1,23 @@
 package game;
 
-public class House extends Building{
-
+public class Factory extends Building {
     private final int incomeRate;
-    public House(String name, int buildCost, int incomeRate){
+    public Factory(String name, int buildCost, int incomeRate){
         super(name, buildCost);
         this.incomeRate = incomeRate;
     }
-
     @Override
     public void onTick(City city) {
         city.addMoney(getIncomeRate());
     }
 
     @Override
-    public String getSymbol(){ return "H"; }
+    public String getSymbol() {
+        return "F";
+    }
 
     @Override
-    public int getIncomeRate() {
+    public int getIncomeRate(){
         return incomeRate;
     }
 }

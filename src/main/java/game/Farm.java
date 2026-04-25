@@ -1,9 +1,9 @@
 package game;
 
-public class House extends Building{
-
+public class Farm extends Building {
     private final int incomeRate;
-    public House(String name, int buildCost, int incomeRate){
+
+    public Farm(String name, int buildCost, int incomeRate){
         super(name, buildCost);
         this.incomeRate = incomeRate;
     }
@@ -14,10 +14,10 @@ public class House extends Building{
     }
 
     @Override
-    public String getSymbol(){ return "H"; }
+    public String getSymbol() {
+        return "F";
+    }
 
     @Override
-    public int getIncomeRate() {
-        return incomeRate;
-    }
+    public int getIncomeRate(){ return incomeRate; }
 }

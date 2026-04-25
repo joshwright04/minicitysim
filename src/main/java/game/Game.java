@@ -33,13 +33,41 @@ public class Game {
     }
 
     private void handlePlace(Scanner scanner) {
+        BuildingFactory buildingFactory = new BuildingFactory();
+
+        System.out.println("Choose building type:");
+        System.out.println("1 - Cottage");
+        System.out.println("2 - House");
+        System.out.println("3 - Mansion");
+        System.out.println("4 - Farm");
+        System.out.println("5 - Factory");
+        System.out.println("6 - Apartment Complex");
+        System.out.println("7 - Cancel");
+
+        String choice = scanner.nextLine();
+
+        Building building = switch (choice) {
+            case "1" -> buildingFactory.createCottage("Cottage");
+            case "2" -> buildingFactory.createHouse("House");
+            case "3" -> buildingFactory.createMansion("Mansion");
+            case "4" -> buildingFactory.createFarm("Farm");
+            case "5" -> buildingFactory.createFactory("Factory");
+            case "6" -> buildingFactory.createApartmentComplex("Apartments");
+            default -> null;
+        };
+
+        if (building == null) {
+            System.out.println("Cancelled.");
+            return;
+        }
+
         System.out.println("Enter x:");
         int x = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Enter y:");
         int y = Integer.parseInt(scanner.nextLine());
 
-        boolean success = city.place(new House("Cottage"), new Position(x, y));
+        boolean success = city.place(building, new Position(x, y));
         System.out.println(success ? "Placed." : "Could not place building.");
     }
 

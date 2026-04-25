@@ -10,6 +10,8 @@ public class Tile {
         this.object = object;
     }
 
+    public TerrainType getTerrainType() { return terrain; }
+
     public boolean isEmpty() {
         return object == null;
     }

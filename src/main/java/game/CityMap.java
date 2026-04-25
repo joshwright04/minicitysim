@@ -23,4 +23,13 @@ public class CityMap {
         return this.grid;
     }
 
+    public int getRows() {
+        return grid.length;
+    }
+
+    public int getCols() {
+        return grid[0].length;
+    }
+
 }
+

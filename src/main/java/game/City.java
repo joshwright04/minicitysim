@@ -1,9 +1,12 @@
 package game;
 
+import observers.CityObservable;
+import observers.CityObserver;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class City {
+public class City implements CityObservable {
     private Double money;
     private int population;
     private CityMap map;

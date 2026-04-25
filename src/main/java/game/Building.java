@@ -3,7 +3,12 @@ package game;
 public abstract class Building implements Placeable {
 
     String name;
-    int buildCost;
+    private final int buildCost;
+
+    public Building(String name, int buildCost){
+        this.name = name;
+        this.buildCost = buildCost;
+    }
 
     @Override
     public String getName() {
@@ -12,9 +17,14 @@ public abstract class Building implements Placeable {
 
     @Override
     public int getBuildCost() {
-        return this.buildCost;
+        return buildCost;
     }
 
     @Override
     public abstract void onTick(City city);
+
+    @Override
+    public abstract String getSymbol();
+
+    public abstract int getIncomeRate();
 }
