@@ -34,6 +34,9 @@ public class Tile {
     public void setObject(Placeable object){
         this.object = object;
     }
+
+    public void setTerrain(TerrainType terrain){ this.terrain = terrain; }
+
     public Placeable getObject(){
         return this.object;
     }

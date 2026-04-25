@@ -7,7 +7,7 @@ public class Main {
     public static City create2x2City(){
         Tile t1 = new Tile(TerrainType.LAND);
         Tile t2 = new Tile(TerrainType.ROCK);
-        Tile t3 = new Tile(TerrainType.RIVER);
+        Tile t3 = new Tile(TerrainType.LAKE);
         Tile t4 = new Tile(TerrainType.LAND);
 
         Tile[][] grid = {
@@ -30,8 +30,8 @@ public class Main {
                 },
                 {
                         new Tile(TerrainType.LAND),
-                        new Tile(TerrainType.RIVER),
-                        new Tile(TerrainType.RIVER),
+                        new Tile(TerrainType.LAKE),
+                        new Tile(TerrainType.LAKE),
                         new Tile(TerrainType.LAND),
                         new Tile(TerrainType.ROCK)
                 },
@@ -46,7 +46,7 @@ public class Main {
                         new Tile(TerrainType.ROCK),
                         new Tile(TerrainType.LAND),
                         new Tile(TerrainType.LAND),
-                        new Tile(TerrainType.RIVER),
+                        new Tile(TerrainType.LAKE),
                         new Tile(TerrainType.LAND)
                 },
                 {

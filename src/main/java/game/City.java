@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class City implements CityObservable {
+    private static final int ROCK_DEMOLITION_COST = 100;
+    private static final int BUILDING_DEMOLITION_COST = 150;
+
     public boolean running;
     private Double money;
     private final CityMap map;
@@ -23,29 +26,31 @@ public class City implements CityObservable {
     }
 
     public boolean place(String buildingName, Position position) {
+        Tile tile = map.getTile(position);
+        if(!tile.isEmpty() || tile.getTerrainType() != TerrainType.LAND) { return false; }
+
         Building building = switch (buildingName) {
-            case "Cottage" -> buildingFactory.createCottage("Cottage");
-            case "House" -> buildingFactory.createHouse("House");
-            case "Mansion" -> buildingFactory.createMansion("Mansion");
-            case "Farm" -> buildingFactory.createFarm("Farm");
-            case "Factory" -> buildingFactory.createFactory("Factory");
+            case "Cottage" -> buildingFactory.createCottage();
+            case "House" -> buildingFactory.createHouse();
+            case "Mansion" -> buildingFactory.createMansion();
+            case "Farm" -> buildingFactory.createFarm();
+            case "Factory" -> buildingFactory.createFactory();
             case "Apartment Complex" -> buildingFactory.createMidTierApartmentComplex("Apartments");
             default -> null;
         };
 
+        if(building == null){ return false; }
+
         return place(building, position);
     }
 
-    public boolean place(Placeable object, Position position){
+    public boolean place(Placeable object, Position position) {
         Tile tile = map.getTile(position);
-
-        if (tile.isEmpty()){
-            if(money >= object.getBuildCost()){
-                tile.setObject(object);
-                deductMoney(object.getBuildCost());
-                notifyObservers();
-                return true;
-            }
+        if(money >= object.getBuildCost()){
+            tile.setObject(object);
+            deductMoney(object.getBuildCost());
+            notifyObservers();
+            return true;
         }
         return false;
     }
@@ -53,10 +58,20 @@ public class City implements CityObservable {
     public boolean demolish(Position position){
         Tile tile = map.getTile(position);
 
+        if(tile.getTerrainType() == TerrainType.ROCK){
+            tile.setTerrain(TerrainType.LAND);
+            deductMoney(ROCK_DEMOLITION_COST);
+            notifyObservers();
+            return true;
+        }
+
         if (tile.isEmpty()){
             return false;
         }
+
         tile.setObject(null);
+        deductMoney(BUILDING_DEMOLITION_COST);
+        notifyObservers();
         return true;
     }
 

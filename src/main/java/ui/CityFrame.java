@@ -52,6 +52,36 @@ public class CityFrame extends JFrame implements CityObserver {
         return item;
     }
 
+    private void askForCoordinatesAndRemove() {
+        String input = JOptionPane.showInputDialog(
+                this,
+                "Enter coordinates as x,y:",
+                "Remove",
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (input == null) return;
+
+        String[] parts = input.split(",");
+
+        if (parts.length != 2) {
+            JOptionPane.showMessageDialog(this, "Use format: x,y");
+            return;
+        }
+
+        try {
+            int x = Integer.parseInt(parts[0].trim());
+            int y = Integer.parseInt(parts[1].trim());
+
+            Position position = new Position(x, y);
+
+            city.demolish(position);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Coordinates must be numbers.");
+        }
+    }
+
     private void setupMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu gameMenu = new JMenu("Game");
@@ -63,9 +93,7 @@ public class CityFrame extends JFrame implements CityObserver {
         });
 
         JMenuItem remove = new JMenuItem("Remove");
-        remove.addActionListener(e -> {
-            System.out.println("Remove selected");
-        });
+        remove.addActionListener(e -> askForCoordinatesAndRemove());
 
         JMenuItem quit = new JMenuItem("Quit");
         quit.addActionListener(e -> {
@@ -96,6 +124,10 @@ public class CityFrame extends JFrame implements CityObserver {
         this.moneyLabel = new JLabel();
         this.gridPanel = new JPanel();
 
+        moneyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        moneyLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 15));
+        moneyLabel.setFont(new Font("Arial", Font.BOLD, 18));
+
         city.addObserver(this);
 
         setTitle("MiniCitySim");
@@ -117,6 +149,10 @@ public class CityFrame extends JFrame implements CityObserver {
     }
 
     private void refresh() {
+        if(city.getMoney() <= 0){
+            this.city.running = false;
+            System.exit(0);
+        }
         moneyLabel.setText("Money: $" + city.getMoney());
 
         gridPanel.removeAll();
@@ -172,7 +208,7 @@ public class CityFrame extends JFrame implements CityObserver {
         return switch (terrainType) {
             case LAND -> "/images/land.png";
             case ROCK -> "/images/rock.png";
-            case RIVER -> "/images/river.png";
+            case LAKE -> "/images/lake.png";
         };
     }
 }

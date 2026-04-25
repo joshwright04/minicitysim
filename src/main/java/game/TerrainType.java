@@ -2,6 +2,6 @@ package game;
 
 public enum TerrainType {
     LAND,
-    RIVER,
+    LAKE,
     ROCK
 }
