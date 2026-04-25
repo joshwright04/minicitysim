@@ -83,7 +83,7 @@ public class ApartmentComplex extends Building implements RealEstate {
     }
 
     @Override
-    public String getSymbol() {
-        return "A";
+    public String getImagePath() {
+        return "/images/apartment_complex.jpg";
     }
 }

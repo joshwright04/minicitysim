@@ -8,7 +8,7 @@ public class Mansion extends House {
     }
 
     @Override
-    public String getSymbol() {
-        return "M";
+    public String getImagePath() {
+        return "/images/mansion.jpg";
     }
 }

@@ -26,7 +26,7 @@ public abstract class Building implements Placeable {
     public abstract void onTick(City city);
 
     @Override
-    public abstract String getSymbol();
+    public abstract String getImagePath();
 
     public abstract int getIncomeRate();
 }

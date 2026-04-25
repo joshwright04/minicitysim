@@ -50,7 +50,7 @@ public class House extends Building implements RealEstate {
     }
 
     @Override
-    public String getSymbol() {
-        return "H";
+    public String getImagePath() {
+        return "/images/house.jpg";
     }
 }

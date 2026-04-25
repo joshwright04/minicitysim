@@ -14,8 +14,8 @@ public class Factory extends Building {
     }
 
     @Override
-    public String getSymbol() {
-        return "F";
+    public String getImagePath() {
+        return "/images/factory.jpg";
     }
 
     @Override

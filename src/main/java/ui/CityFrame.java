@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.HashMap;
+import java.util.Map;
 import game.*;
 import game.building.BuildingFactory;
 import observers.CityObserver;
@@ -12,6 +14,7 @@ public class CityFrame extends JFrame implements CityObserver {
     private final JLabel moneyLabel;
     private final JPanel gridPanel;
     private final BuildingFactory buildingFactory = new BuildingFactory();
+    private final Map<String, ImageIcon> iconCache = new HashMap<>();
 
     private JMenuItem createBuildingMenuItem(String name) {
         JMenuItem item = new JMenuItem(name);
@@ -128,8 +131,18 @@ public class CityFrame extends JFrame implements CityObserver {
             for (int x = 0; x < cols; x++) {
                 Tile tile = map.getTile(new Position(x, y));
 
-                JButton button = new JButton(getTileText(tile));
+                JButton button = new JButton();
                 button.setFocusable(false);
+
+                String imagePath;
+
+                if (tile.getObject() != null) {
+                    imagePath = tile.getObject().getImagePath();
+                } else {
+                    imagePath = getTerrainImagePath(tile.getTerrainType());
+                }
+
+                button.setIcon(loadIcon(imagePath));
 
                 gridPanel.add(button);
             }
@@ -139,15 +152,27 @@ public class CityFrame extends JFrame implements CityObserver {
         gridPanel.repaint();
     }
 
-    private String getTileText(Tile tile) {
-        if (tile.getObject() != null) {
-            return tile.getObject().getSymbol();
-        }
 
-        return switch (tile.getTerrainType()) {
-            case LAND -> ".";
-            case ROCK -> "R";
-            case RIVER -> "~";
+    private ImageIcon loadIcon(String path) {
+        return iconCache.computeIfAbsent(path, p -> {
+            java.net.URL url = getClass().getResource(p);
+
+            if (url == null) {
+                System.out.println("Missing image: " + p);
+                return null;
+            }
+
+            ImageIcon raw = new ImageIcon(url);
+            Image scaled = raw.getImage().getScaledInstance(96, 96, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaled);
+        });
+    }
+
+    private String getTerrainImagePath(TerrainType terrainType) {
+        return switch (terrainType) {
+            case LAND -> "/images/land.png";
+            case ROCK -> "/images/rock.png";
+            case RIVER -> "/images/river.png";
         };
     }
 }
