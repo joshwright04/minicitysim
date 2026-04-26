@@ -4,6 +4,7 @@ import game.building.BuildingFactory;
 import org.junit.jupiter.api.Test;
 
 import static game.Main.create2x2City;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MiniCitySimTest {
@@ -27,6 +28,6 @@ public class MiniCitySimTest {
         MiniCitySim miniCitySim = create2x2City();
         Double previousMoney = miniCitySim.getMoney();
         miniCitySim.tick();
-        assertTrue(previousMoney == miniCitySim.getMoney());
+        assertSame(previousMoney, miniCitySim.getMoney());
     }
 }
