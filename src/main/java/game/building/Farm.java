@@ -1,6 +1,6 @@
 package game.building;
 
-import game.City;
+import game.MiniCitySim;
 
 public class Farm extends Building {
     private final int incomeRate;
@@ -11,8 +11,8 @@ public class Farm extends Building {
     }
 
     @Override
-    public void onTick(City city) {
-        city.addMoney(getIncomeRate());
+    public void onTick(MiniCitySim miniCitySim) {
+        miniCitySim.addMoney(getIncomeRate());
     }
 
     @Override

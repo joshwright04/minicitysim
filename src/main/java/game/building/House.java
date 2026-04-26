@@ -1,6 +1,6 @@
 package game.building;
 
-import game.City;
+import game.MiniCitySim;
 import game.tenant.ITenant;
 
 import java.util.List;
@@ -47,8 +47,8 @@ public class House extends Building implements RealEstate {
     }
 
     @Override
-    public void onTick(City city) {
-        city.addMoney(collectRent());
+    public void onTick(MiniCitySim miniCitySim) {
+        miniCitySim.addMoney(collectRent());
     }
 
     @Override

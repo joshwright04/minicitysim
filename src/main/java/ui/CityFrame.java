@@ -3,17 +3,17 @@ package ui;
 import java.util.HashMap;
 import java.util.Map;
 import game.*;
-import game.building.BuildingFactory;
 import game.building.RealEstate;
 import observers.CityObserver;
 
 import javax.swing.*;
 import java.awt.*;
 
-// Note: We used ChatGPT to assist in generating code for our UI
+// Note: We used ChatGPT to assist in generating code for our
+// Swing UI, which is handled in the CityFrame.java class.
 
 public class CityFrame extends JFrame implements CityObserver {
-    private final City city;
+    private final MiniCitySim miniCitySim;
     private final JLabel moneyLabel;
     private final JPanel gridPanel;
     private final Map<String, ImageIcon> iconCache = new HashMap<>();
@@ -23,11 +23,11 @@ public class CityFrame extends JFrame implements CityObserver {
         JMenu gameMenu = new JMenu("Game");
 
         JMenuItem nextTick = new JMenuItem("Next Tick");
-        nextTick.addActionListener(e -> city.tick());
+        nextTick.addActionListener(e -> miniCitySim.tick());
 
         JMenuItem quit = new JMenuItem("Quit");
         quit.addActionListener(e -> {
-            this.city.running = false;
+            this.miniCitySim.running = false;
             System.exit(0);
         });
 
@@ -38,8 +38,8 @@ public class CityFrame extends JFrame implements CityObserver {
         setJMenuBar(menuBar);
     }
 
-    public CityFrame(City city) {
-        this.city = city;
+    public CityFrame(MiniCitySim miniCitySim) {
+        this.miniCitySim = miniCitySim;
         this.moneyLabel = new JLabel();
         this.gridPanel = new JPanel();
 
@@ -47,7 +47,7 @@ public class CityFrame extends JFrame implements CityObserver {
         moneyLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 15));
         moneyLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
-        city.addObserver(this);
+        miniCitySim.addObserver(this);
 
         setTitle("MiniCitySim");
         setSize(600, 600);
@@ -63,20 +63,20 @@ public class CityFrame extends JFrame implements CityObserver {
     }
 
     @Override
-    public void onCityChanged(City city) {
+    public void onCityChanged(MiniCitySim miniCitySim) {
         refresh();
     }
 
     private void refresh() {
-        if(city.getMoney() <= 0){
-            this.city.running = false;
+        if(miniCitySim.getMoney() <= 0){
+            this.miniCitySim.running = false;
             System.exit(0);
         }
-        moneyLabel.setText("Money: $" + city.getMoney());
+        moneyLabel.setText("Money: $" + miniCitySim.getMoney());
 
         gridPanel.removeAll();
 
-        CityMap map = city.getMap();
+        CityMap map = miniCitySim.getMap();
         int rows = map.getRows();
         int cols = map.getCols();
 
@@ -137,7 +137,7 @@ public class CityFrame extends JFrame implements CityObserver {
     private void showTileMenu(Component parent, Position position) {
         JPopupMenu menu = new JPopupMenu();
 
-        Tile tile = city.getMap().getTile(position);
+        Tile tile = miniCitySim.getMap().getTile(position);
 
         if (tile.getObject() instanceof RealEstate realEstate) {
             JMenu tenantMenu = new JMenu("Tenants");
@@ -168,7 +168,7 @@ public class CityFrame extends JFrame implements CityObserver {
 
         JMenuItem removeItem = new JMenuItem("Remove");
         removeItem.addActionListener(e -> {
-            boolean success = city.demolish(position);
+            boolean success = miniCitySim.demolish(position);
 
             if (!success) {
                 JOptionPane.showMessageDialog(this, "Nothing to remove here.");
@@ -185,7 +185,7 @@ public class CityFrame extends JFrame implements CityObserver {
         JMenuItem item = new JMenuItem(buildingName);
 
         item.addActionListener(e -> {
-            boolean success = city.place(buildingName, position);
+            boolean success = miniCitySim.place(buildingName, position);
 
             if (!success) {
                 JOptionPane.showMessageDialog(this, "Could not place " + buildingName + " here.");

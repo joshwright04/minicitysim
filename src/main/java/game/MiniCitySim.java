@@ -9,7 +9,7 @@ import observers.CityObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class City implements CityObservable {
+public class MiniCitySim implements CityObservable {
     private static final int ROCK_DEMOLITION_COST = 100;
     private static final int BUILDING_DEMOLITION_COST = 150;
 
@@ -19,7 +19,7 @@ public class City implements CityObservable {
     private final List<CityObserver> observers = new ArrayList<>();
     private final BuildingFactory buildingFactory = new BuildingFactory();
 
-    public City(CityMap map){
+    public MiniCitySim(CityMap map){
         this.map = map;
         this.money = 1000.00;
         this.running = true;

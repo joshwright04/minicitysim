@@ -1,6 +1,6 @@
 package game.building;
 
-import game.City;
+import game.MiniCitySim;
 
 public abstract class Building implements Placeable {
 
@@ -23,7 +23,7 @@ public abstract class Building implements Placeable {
     }
 
     @Override
-    public abstract void onTick(City city);
+    public abstract void onTick(MiniCitySim miniCitySim);
 
     @Override
     public abstract String getImagePath();

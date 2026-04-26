@@ -1,10 +1,9 @@
 package game;
 
-import game.building.BuildingFactory;
 import ui.CityFrame;
 
 public class Main {
-    public static City create2x2City(){
+    public static MiniCitySim create2x2City(){
         Tile t1 = new Tile(TerrainType.LAND);
         Tile t2 = new Tile(TerrainType.ROCK);
         Tile t3 = new Tile(TerrainType.LAKE);
@@ -16,10 +15,10 @@ public class Main {
         };
 
         CityMap map = new CityMap(grid);
-        return new City(map);
+        return new MiniCitySim(map);
     }
 
-    public static City create5x5City() {
+    public static MiniCitySim create5x5City() {
         Tile[][] grid = {
                 {
                         new Tile(TerrainType.LAND),
@@ -59,15 +58,15 @@ public class Main {
         };
 
         CityMap map = new CityMap(grid);
-        return new City(map);
+        return new MiniCitySim(map);
     }
 
 
     public static void main(String[] args) {
-        City city = create5x5City();
+        MiniCitySim miniCitySim = create5x5City();
 
         javax.swing.SwingUtilities.invokeLater(() -> {
-            CityFrame frame = new CityFrame(city);
+            CityFrame frame = new CityFrame(miniCitySim);
             frame.setTitle("MiniCitySim");
             frame.setSize(600, 400);
             frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);

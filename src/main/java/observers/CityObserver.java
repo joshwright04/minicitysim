@@ -1,7 +1,7 @@
 package observers;
 
-import game.City;
+import game.MiniCitySim;
 
 public interface CityObserver {
-    void onCityChanged(City city);
+    void onCityChanged(MiniCitySim miniCitySim);
 }
