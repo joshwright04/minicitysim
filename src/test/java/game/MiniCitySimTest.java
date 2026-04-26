@@ -8,9 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MiniCitySimTest {
-
-
-
     @Test
     public void testPlace(){
         MiniCitySim miniCitySim = create2x2City();
