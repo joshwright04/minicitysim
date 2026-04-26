@@ -10,11 +10,12 @@ import observers.CityObserver;
 import javax.swing.*;
 import java.awt.*;
 
+// Note: We used ChatGPT to assist in generating code for our UI
+
 public class CityFrame extends JFrame implements CityObserver {
     private final City city;
     private final JLabel moneyLabel;
     private final JPanel gridPanel;
-    private final BuildingFactory buildingFactory = new BuildingFactory();
     private final Map<String, ImageIcon> iconCache = new HashMap<>();
 
     private void setupMenu() {
