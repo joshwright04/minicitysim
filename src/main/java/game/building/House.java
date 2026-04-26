@@ -20,6 +20,8 @@ public class House extends Building implements RealEstate {
         this.tenant = tenant;
     }
 
+    public int getBaseRent() { return this.baseRent; }
+
     public void setTenant(ITenant tenant) {
         this.tenant = tenant;
     }
